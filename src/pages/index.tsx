@@ -1,13 +1,13 @@
 import * as React from "react"
-import Navigation from "../components/navbar"
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Layout from "../components/layout";
 
 // markup
 const IndexPage = () => {
   return (
-    <main>
-      <Navigation></Navigation>
-    </main>
+    <Layout>
+      <h1>Hello</h1>
+    </Layout>
   )
 }
 

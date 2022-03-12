@@ -24,7 +24,7 @@ module.exports = {
       consumer_secret: `cs_9dbd2ee350f0a9cdf06b2fd7c831e029ad047976`,
     },
     // Array of strings with fields you'd like to create nodes for...
-    fields: ['products', 'products/categories', 'products/attributes'],
+    fields: ['products', 'products/categories', 'products/variations'],
   }
 },]
 };

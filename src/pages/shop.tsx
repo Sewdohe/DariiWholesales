@@ -1,55 +1,42 @@
 import * as React from "react";
 import { graphql, PageProps } from "gatsby";
-import { Product, Products } from "../queries/newestTen";
+import { ProductCard } from "../components/productCard";
+import { Product, Products } from "../types/Types";
+import Layout from "../components/layout";
+import { Container, Row, Col } from "react-bootstrap";
 
-interface newestItems {
+interface QueryResult {
   allWcProducts: {
-    edges: Product[];
+    edges: Products;
   };
 }
 
-interface queryResult {
-  allWcProducts: {
-    edges: Products;
-  }
-}
-
-const Shop: React.FC<PageProps<newestItems>> = ({ data }) => {
+const Shop: React.FC<PageProps<QueryResult>> = ({ data }) => {
   return (
-    <div>
-      <ul>
-        {data.allWcProducts.edges.map((product) => (
-          <li key={product.node.id}>
-            <span>{product.node.name}</span>
-            {product.node.images ? (
-              <img src={product.node.images[0].src} />
-            ) : (
-              <span>no image</span>
-            )}
-          </li>
-        ))}
-      </ul>
-    </div>
+    <Layout>
+      <Container fluid>
+        <Row>
+          {data.allWcProducts.edges.map((product: Product) => (
+            <Col lg="2">
+              <ProductCard item={product}></ProductCard>
+            </Col>
+          ))}
+        </Row>
+      </Container>
+    </Layout>
   );
 };
 
+export default Shop;
+
 export const query = graphql`
   query {
-    allWcProducts(limit: 10) {
+    allWcProducts(filter: {featured: {eq: true}}) {
       edges {
         node {
-          description
-          name
-          price
-          sku
-          id
-          images {
-            src
-          }
+          ...ProductData
         }
       }
     }
   }
 `;
-
-export default Shop;
