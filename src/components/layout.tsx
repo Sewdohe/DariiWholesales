@@ -1,19 +1,30 @@
 import React from "react";
 import Navigation from "./navigation";
-import { ThemeContextType, Theme } from '../@types/theme';
-import { ThemeContext } from '../contexts/themeContext';
+import { ThemeContext } from "../contexts/themeContext";
+import styled from "styled-components";
+
+const SiteContainer = styled.div`
+display: flex;
+flex-direction: column;
+box-sizing: border-box;
+padding: 0;
+margin: 1rem auto;
+width: 80%;
+justify-content: center;
+align-items: center;
+`;
 
 const Layout: React.FC = ({ children }) => {
-
   return (
     <ThemeContext.Consumer>
-      { themeContext => (
+      {(themeContext) => (
         <>
           <Navigation theme={themeContext?.theme}></Navigation>
-          {children}
+          <SiteContainer>
+            {children}
+          </SiteContainer>
         </>
-        )
-      }
+      )}
     </ThemeContext.Consumer>
   );
 };

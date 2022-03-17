@@ -3,7 +3,7 @@ import ThemeContext from '../contexts/themeContext';
 import { Theme, ThemeContextType } from '../@types/theme';
 
 const ThemeProvider: React.FC<React.ReactNode> = ({ children }) => {
-  const [themeMode, changeTheme] = React.useState<Theme>('light');
+  const [themeMode, changeTheme] = React.useState<Theme>('dark');
   return (
     <ThemeContext.Provider value={{ theme: themeMode, changeTheme: changeTheme }}>
       {children}

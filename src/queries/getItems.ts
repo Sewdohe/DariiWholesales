@@ -7,6 +7,8 @@ export const ProductData = graphql`
     price
     id
     sku
+    wordpress_id
+    slug
     images {
       src
     }
