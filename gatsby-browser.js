@@ -1,8 +1,12 @@
-import ThemeProvider from './src/providers/ThemeProvider';
+import ThemeProvider from "./src/providers/ThemeProvider";
+import CartProvider from "./src/providers/CartProdiver";
 import React from "react";
 
-// export const wrapRootElement = ThemeProvider;
 
 export const wrapRootElement = ({ element }) => (
-  <ThemeProvider>{element}</ThemeProvider>
-)
+  <CartProvider>
+    <ThemeProvider>
+      {element}
+    </ThemeProvider>
+  </CartProvider>
+);

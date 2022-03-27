@@ -1,21 +1,34 @@
-import * as React from "react";
-import styled from "styled-components"
+import React, {useEffect, useState} from "react";
+
+import styled from "styled-components";
 import { BsCart } from "react-icons/bs";
-import { FaFileInvoice } from "react-icons/fa"
+import { FaFileInvoice } from "react-icons/fa";
 
 import { Navbar, Container, Nav } from "react-bootstrap";
-import { Theme } from "../@types/theme";
+import { Link } from "gatsby";
+
+import { CartContext } from "../contexts/CartContext";
+import { CartContextType } from "../@types/cart";
+
+import { ThemeContextType } from "../@types/theme";
+import { ThemeContext } from "../contexts/themeContext";
 import ThemeToggler from "./ThemeToggler";
 
-const NavText = styled(Nav.Link)`
-  margin: 0px 6px;
-`
+const NavText = styled(Link)`
+  color: rgba(0, 0, 0, 0.55);
+  padding: 0.5rem;
+  text-decoration: none;
+`;
 
-interface Props {
-  theme?: Theme;
-}
+const Navigation = () => {
+  const { cart, getTotalQty } = React.useContext(CartContext) as CartContextType;
+  const { theme } = React.useContext(ThemeContext) as ThemeContextType;
+  const [qty, setQty] = useState(getTotalQty);
 
-const Navigation = ({theme}: Props) => {
+  useEffect(() => {
+    setQty(getTotalQty);
+  }, [cart])
+
   return (
     <>
       <Navbar bg={theme} variant={theme}>
@@ -23,18 +36,18 @@ const Navigation = ({theme}: Props) => {
           <Navbar.Brand href="#home">Dari Wholesales</Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Nav className="me-auto">
-            <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/shop">Shop</Nav.Link>
-            <Nav.Link href="#pricing">Open Account</Nav.Link>
+            <NavText to="/">Home</NavText>
+            <NavText to="/shop">Shop</NavText>
+            <NavText to="#pricing">Open Account</NavText>
           </Nav>
           <Nav>
-            <NavText href="#cart" className="justify-content-end">
-              <BsCart /> Cart
+            <NavText to="#cart" className="justify-content-end">
+              <BsCart /> Cart ({qty})
             </NavText>
-            <NavText href="#invoices" className="justify-content-end">
+            <NavText to="#invoices" className="justify-content-end">
               <FaFileInvoice /> Invoices
             </NavText>
-            <ThemeToggler></ThemeToggler>
+            {/* <ThemeToggler></ThemeToggler> */}
           </Nav>
         </Container>
       </Navbar>

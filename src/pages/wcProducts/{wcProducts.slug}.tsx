@@ -1,9 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { graphql } from "gatsby";
 import Layout from "../../components/layout";
-import { Product } from "../../@types/product";
+import { Product, Products } from "../../@types/product";
 import styled from "styled-components";
-import { DropdownButton, Dropdown } from "react-bootstrap";
+import { DropdownButton, Dropdown, Button } from "react-bootstrap";
+// @ts-ignore
+import CounterInput from "react-bootstrap-counter";
+import { CartContext } from "../../contexts/CartContext";
+import { CartContextType } from "../../@types/cart";
+import { PopupCart } from "../../components/PopupCart";
+
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import Box from '@mui/material/Box';
+
+
+
 
 interface Data {
   data: {
@@ -17,27 +31,31 @@ const PriceText = styled.span`
   font-weight: bold;
 `;
 
-const ProductTemplate = ({ data }: Data) => {
+const ProductTemplate: React.FC<Data> = ({ data }: Data) => {
   const { wcProducts: product } = data;
   let hasAttributes;
+  const { cart: products, addToCart } = React.useContext(
+    CartContext
+  ) as CartContextType;
+  const [qty, setQty] = useState(1);
+  const [attrib, setAttrib] = useState("");
 
   // @ts-ignore
   product.product_variations.length != 0
     ? (hasAttributes = true)
     : (hasAttributes = false);
 
-  console.log(hasAttributes ? "Has attributes" : "No Attributes");
+  const addItemToCart = () => {
+    addToCart(product, qty, attrib);
+  };
 
   return (
     <Layout>
-      <h1>
-        {product.name}
-        {console.log(product)}
-      </h1>
+      <h1>{product.name}</h1>
       <div>
         {product.images.length > 0 ? (
           <img
-            style={{ maxWidth: "300px", maxHeight: "300px" }}
+            style={{ maxWidth: "175px", maxHeight: "175px" }}
             src={product.images[0].src}
           />
         ) : (
@@ -45,31 +63,47 @@ const ProductTemplate = ({ data }: Data) => {
         )}
       </div>
 
-      <div>
+      <Box sx={{ minWidth: 120 }}>
         {hasAttributes ? (
-          <DropdownButton
-            id="variation"
-            title={
+          <FormControl fullWidth>
+          <InputLabel id="demo-simple-select-label">{
               hasAttributes == true
-                ? " " + product.product_variations?.[0].attributes?.[0].name + " "
+                ? " " +
+                  product.product_variations?.[0].attributes?.[0].name +
+                  " "
+                : "option"
+            }</InputLabel>
+          <Select
+            labelId="attrib-select-id"
+            id="attrib-select"
+            value={attrib}
+            label={
+              hasAttributes == true
+                ? " " +
+                  product.product_variations?.[0].attributes?.[0].name +
+                  " "
                 : "option"
             }
+            onChange={(e) => {setAttrib(e.target.value)}}
           >
             {product.product_variations.map((variation) => {
               return variation.attributes != undefined ? (
-                <Dropdown.Item key={variation.attributes[0].option}>
+                <MenuItem
+                  value={variation.attributes[0].option}
+                  key={variation.attributes[0].option}
+                >
                   {variation.attributes[0].option}
-                  {console.log(variation)}
-                </Dropdown.Item>
+                </MenuItem>
               ) : (
                 <span>none</span>
               );
             })}
-          </DropdownButton>
+          </Select>
+        </FormControl>
         ) : (
-          <span></span>
+          <span>No Options</span>
         )}
-      </div>
+      </Box>
 
       <div style={{ margin: "1rem 1rem" }}>
         {product.description ? (
@@ -79,6 +113,16 @@ const ProductTemplate = ({ data }: Data) => {
         )}
       </div>
       <PriceText>${product.price * 1}</PriceText>
+      <div style={{ width: "100px" }}>
+        <CounterInput
+          style={{ width: "100px" }}
+          onChange={(value: number) => {
+            setQty(value);
+          }}
+          value={1}
+        />
+      </div>
+      <Button onClick={addItemToCart}>Add to Cart</Button>
     </Layout>
   );
 };

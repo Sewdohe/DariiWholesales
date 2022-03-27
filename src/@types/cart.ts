@@ -1,6 +1,16 @@
-import { Products } from "./product";
+import React from "react";
+import { Product, Products } from "./product";
 
 export type CartContextType = {
-  products?: Products | null;
-  updateCart: (products: Products) => void;
+  cart: Cart;
+  addToCart: (item: Product, qty: number, variation: string) => void;
+  getTotalQty: () => number
 };
+
+export interface CartLine {
+  product: Product,
+  qty: number,
+  variation: string
+}
+
+export interface Cart extends Array<CartLine> {};
