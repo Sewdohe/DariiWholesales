@@ -1,8 +1,7 @@
 import React from "react";
-import Navigation from "./navigation";
 import styled from "styled-components";
-import { PageProps } from "gatsby";
 import { Helmet } from "react-helmet";
+import Navbar from './Navbar';
 
 const SiteContainer = styled.div`
   display: flex;
@@ -28,7 +27,6 @@ const Layout: React.FC = ({ children }) => {
           href="https://fonts.googleapis.com/icon?family=Material+Icons"
         />
       </Helmet>
-      <Navigation></Navigation>
       <SiteContainer>{children}</SiteContainer>
     </>
   );

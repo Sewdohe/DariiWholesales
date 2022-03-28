@@ -10,14 +10,11 @@ import { CartContext } from "../../contexts/CartContext";
 import { CartContextType } from "../../@types/cart";
 import { PopupCart } from "../../components/PopupCart";
 
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-import Box from '@mui/material/Box';
-
-
-
+import Select, { SelectChangeEvent } from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
+import Box from "@mui/material/Box";
 
 interface Data {
   data: {
@@ -38,7 +35,11 @@ const ProductTemplate: React.FC<Data> = ({ data }: Data) => {
     CartContext
   ) as CartContextType;
   const [qty, setQty] = useState(1);
-  const [attrib, setAttrib] = useState("");
+  const [attrib, setAttrib] = useState(
+    product.product_variations
+      ? product.product_variations[0].attributes[0].option
+      : ""
+  );
 
   // @ts-ignore
   product.product_variations.length != 0
@@ -51,6 +52,7 @@ const ProductTemplate: React.FC<Data> = ({ data }: Data) => {
 
   return (
     <Layout>
+      {console.log(product.attributes)}
       <h1>{product.name}</h1>
       <div>
         {product.images.length > 0 ? (
@@ -65,41 +67,45 @@ const ProductTemplate: React.FC<Data> = ({ data }: Data) => {
 
       <Box sx={{ minWidth: 120 }}>
         {hasAttributes ? (
+          // TODO: Iterate thru each attribute and make a selector for each.
+          // also, change the item model to account for multiple attributes...and then the cart.
           <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">{
-              hasAttributes == true
+            <InputLabel id="demo-simple-select-label">
+              {hasAttributes == true
                 ? " " +
                   product.product_variations?.[0].attributes?.[0].name +
                   " "
-                : "option"
-            }</InputLabel>
-          <Select
-            labelId="attrib-select-id"
-            id="attrib-select"
-            value={attrib}
-            label={
-              hasAttributes == true
-                ? " " +
-                  product.product_variations?.[0].attributes?.[0].name +
-                  " "
-                : "option"
-            }
-            onChange={(e) => {setAttrib(e.target.value)}}
-          >
-            {product.product_variations.map((variation) => {
-              return variation.attributes != undefined ? (
-                <MenuItem
-                  value={variation.attributes[0].option}
-                  key={variation.attributes[0].option}
-                >
-                  {variation.attributes[0].option}
-                </MenuItem>
-              ) : (
-                <span>none</span>
-              );
-            })}
-          </Select>
-        </FormControl>
+                : "option"}
+            </InputLabel>
+            <Select
+              labelId="attrib-select-id"
+              id="attrib-select"
+              value={attrib}
+              label={
+                hasAttributes == true
+                  ? " " +
+                    product.product_variations?.[0].attributes?.[0].name +
+                    " "
+                  : "option"
+              }
+              onChange={(e) => {
+                setAttrib(e.target.value);
+              }}
+            >
+              {product.product_variations.map((variation) => {
+                return variation.attributes != undefined ? (
+                  <MenuItem
+                    value={variation.attributes[0].option}
+                    key={variation.attributes[0].option}
+                  >
+                    {variation.attributes[0].option}
+                  </MenuItem>
+                ) : (
+                  <span>none</span>
+                );
+              })}
+            </Select>
+          </FormControl>
         ) : (
           <span>No Options</span>
         )}

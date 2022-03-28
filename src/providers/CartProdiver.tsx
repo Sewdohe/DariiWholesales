@@ -21,17 +21,38 @@ const CartProvider: React.FC<React.ReactNode> = ({ children }) => {
       if(existingIndex == -1) {
         // if eI == -1 than we didn't find the item in the cart already.
         console.log("fresh item, added to the cart.")
-        return [...prevValue, newLine]; // so, we return the old cart + the new cart line
+        let newCart = cart.slice(); 
+        newCart.push(newLine)
+        console.log(newCart)
+        return newCart // so, we return the old cart + the new cart line
       } else {
+
         // we found the item in the cart.
-        const newCart = cart.slice(); // so we create a copy of the cart
-        console.log("Current existing item index is: " + existingIndex) 
-        newCart[existingIndex].qty = prevValue[existingIndex].qty + qty; // then modify the qty variable of the cart line
-        return [ ...newCart ] // ...and return the new cart
+        // we will be modifying it in some way, so create a copy
+        let newCart = cart.slice(); // so we create a copy of the cart
+        // we have to do a find index again, narrowing it down to the attrib this time
+        const attribIndex = prevValue.findIndex((prevvalue) => {
+          return prevvalue.variation == variation;
+        })
+
+        if(attribIndex != -1) {
+          // if we land here, this variation is alreay in the cart. Adjust qty.
+          console.log("Current existing item index is: " + attribIndex) 
+          console.log("variation is the same...adding qty")
+          newCart[attribIndex].qty = prevValue[attribIndex].qty + qty;
+          console.log(newCart)
+          return newCart
+        } else {
+          // this variation doesn't exist already. treat as a new line.
+          console.log("Current existing item index is: " + attribIndex)
+          console.log("variation is new...adding new line")
+          newCart = [...prevValue, newLine]
+          console.log(newCart)
+          return newCart;
+        }
       }
     })
     console.log("new Cart:")
-    console.log(cart)
   }
 
   const getCartTotal = () => {

@@ -14,6 +14,7 @@ import IconButton, { IconButtonProps } from "@mui/material/IconButton";
 import ShareIcon from "@mui/icons-material/Share";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import Button from '@mui/material/Button';
+import {  } from '@mui/material/colors';
 
 interface Props {
   item: Product;
@@ -25,6 +26,8 @@ const PriceText = styled.div`
   font-size: 1.3rem;
   width: 100%;
   text-align: center;
+  margin: 0.1rem;
+  padding: 0;
 `;
 
 export const ProductCard = ({ item }: Props) => {
@@ -34,13 +37,14 @@ export const ProductCard = ({ item }: Props) => {
 
   return (
     <>
-      <Card sx={{ maxWidth: 345, maxHeight: 500 }}>
+      <Card sx={{minWidth: 200}}>
         <CardHeader
           title={item.name}
+          sx={{fontSize: '0.4rem'}}
           // subheader="September 14, 2016"
         />
         {item.images.length > 0 ? (
-          <CardMedia component="img" height="190" image={item.images[0].src} />
+          <CardMedia component="img" sx={{minHeight: 250, width: 'auto'}} image={item.images[0].src} />
         ) : (
           <span>no image</span>
         )}

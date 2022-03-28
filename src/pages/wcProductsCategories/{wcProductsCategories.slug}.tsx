@@ -1,31 +1,29 @@
-import * as React from "react";
-import { graphql, PageProps } from "gatsby";
-import { ProductCard } from "../components/productCard";
-import { Product } from "../@types/product";
-import Layout from "../components/layout";
-import CategorySidebar from "../components/categorySidebar";
+import React, { useState } from "react";
+import { graphql } from "gatsby";
+import Layout from "../../components/layout";
+import { Product, Products } from "../../@types/product";
 import styled from "styled-components";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
+import { ProductCard } from "../../components/productCard";
+import CategorySidebar from "../../components/categorySidebar";
 
-interface QueryResult {
-  allWcProducts: {
-    edges: [
-      {
-        node: Product;
-      }
-    ];
+interface Data {
+  data: {
+    allWcProducts: {
+      edges: [
+        {
+          node: Product;
+        }
+      ];
+    };
   };
 }
 
-const ShopContainer = styled.div`
-  display: grid;
-  gap: 1rem;
-  grid-template-columns: 80% 15%;
-`;
+const ProductTemplate: React.FC<Data> = ({ data }: Data) => {
+  const { allWcProducts: product } = data;
 
-const Shop: React.FC<PageProps<QueryResult>> = ({ data }) => {
   return (
     <Layout>
       <Box sx={{ flexGrow: 1, minWidth: '80vw' }}>
@@ -37,19 +35,20 @@ const Shop: React.FC<PageProps<QueryResult>> = ({ data }) => {
               rowSpacing={2}
               columnSpacing={3}
               alignItems="flex-end"
-              justifyContent="flex-start"
+              justifyContent="center"
             >
+              {console.log(data)}
               {data.allWcProducts.edges.map(({ node: product }) => {
                 return (
-                  <Grid key={product.id} item xs={12} sm={6} md={4} lg={3} xl={2}>
+                  <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
                     <ProductCard item={product}></ProductCard>
                   </Grid>
                 );
               })}
             </Grid>
           </Box>
-          <Box>
             <CategorySidebar />
+          <Box>
           </Box>
         </Stack>
       </Box>
@@ -57,11 +56,9 @@ const Shop: React.FC<PageProps<QueryResult>> = ({ data }) => {
   );
 };
 
-export default Shop;
-
 export const query = graphql`
-  query {
-    allWcProducts(filter: { featured: { eq: true } }) {
+  query CategoryItemsQuery($id: String!) {
+    allWcProducts(filter: { categories: { elemMatch: { id: { eq: $id } } } }) {
       edges {
         node {
           ...ProductData
@@ -70,3 +67,5 @@ export const query = graphql`
     }
   }
 `;
+
+export default ProductTemplate;
