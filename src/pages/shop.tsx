@@ -35,7 +35,7 @@ const Shop: React.FC<PageProps<QueryResult>> = ({ data }) => {
               flexGrow={1}
               container
               rowSpacing={2}
-              columnSpacing={3}
+              columnSpacing={5}
               alignItems="flex-end"
               justifyContent="flex-start"
             >
