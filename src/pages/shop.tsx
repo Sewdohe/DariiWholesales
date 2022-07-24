@@ -29,13 +29,13 @@ const Shop: React.FC<PageProps<QueryResult>> = ({ data }) => {
   return (
     <Layout>
       <Box sx={{ flexGrow: 1, minWidth: '80vw' }}>
-        <Stack direction="row" spacing={2}>
+        <Stack direction="row" spacing={1}>
           <Box>
             <Grid
               flexGrow={1}
               container
-              rowSpacing={2}
-              columnSpacing={5}
+              rowSpacing={1}
+              columnSpacing={2}
               alignItems="flex-end"
               justifyContent="flex-start"
             >
@@ -48,7 +48,7 @@ const Shop: React.FC<PageProps<QueryResult>> = ({ data }) => {
               })}
             </Grid>
           </Box>
-          <Box>
+          <Box sx={{ flexGrow: 1, minWidth: '20vw' }}>
             <CategorySidebar />
           </Box>
         </Stack>

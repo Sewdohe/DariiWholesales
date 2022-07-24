@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
+import { navigate } from "gatsby";
 import CartContext from "../contexts/CartContext";
 import { CartContextType, CartLine } from "../@types/cart";
 
@@ -7,6 +8,7 @@ import Badge from '@mui/material/Badge';
 
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
+import Button from '@mui/material/Button';
 
 import { Typography } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -61,8 +63,8 @@ export const PopupCart = () => {
           horizontal: "left",
         }}
       >
-        <Box sx={{ width: "300px", height: "500px" }}>
-          <List dense>
+        <Box sx={{ width: "300px", paddingBottom: '8px' }}>
+          <List sx={{height: '100%'}} dense>
             {cart.map((line: CartLine) => {
               return (
                 <ListItem
@@ -93,6 +95,9 @@ export const PopupCart = () => {
               </div>
             )}
           </List>
+          <div style={{display: 'flex', justifyContent: 'center'}}>
+            <Button onClick={() => navigate("/cart")}>View Cart</Button>
+          </div>
         </Box>
       </Popover>
     </div>

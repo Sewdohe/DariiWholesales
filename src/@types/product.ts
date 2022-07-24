@@ -7,11 +7,11 @@ export interface Products extends Array<Product> {}
 export interface Product {
   description: string;
   wordpress_id: number;
-  attributes?: [
+  attributes: [
     {
-      name: string;
-      options: string[];
-      variation: boolean;
+      name?: string;
+      options?: string[];
+      variation?: boolean;
     }
   ]
   name: string;

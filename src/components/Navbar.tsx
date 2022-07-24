@@ -92,7 +92,6 @@ const PrimarySearchAppBar = () => {
     CartContext
   ) as CartContextType;
 
-
   const menuId = "primary-search-account-menu";
   const renderMenu = (
     <Menu
@@ -201,7 +200,7 @@ const PrimarySearchAppBar = () => {
           </Button>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
-           <PopupCart></PopupCart>
+            <PopupCart></PopupCart>
             <IconButton
               size="large"
               edge="end"

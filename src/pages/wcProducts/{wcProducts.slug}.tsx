@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import { graphql } from "gatsby";
 import Layout from "../../components/layout";
-import { Product, Products } from "../../@types/product";
+import { Product } from "../../@types/product";
 import styled from "styled-components";
-import { DropdownButton, Dropdown, Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 // @ts-ignore
 import CounterInput from "react-bootstrap-counter";
 import { CartContext } from "../../contexts/CartContext";
 import { CartContextType } from "../../@types/cart";
-import { PopupCart } from "../../components/PopupCart";
+// import { PopupCart } from "../../components/PopupCart";
 
-import Select, { SelectChangeEvent } from "@mui/material/Select";
+import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
@@ -30,87 +30,96 @@ const PriceText = styled.span`
 
 const ProductTemplate: React.FC<Data> = ({ data }: Data) => {
   const { wcProducts: product } = data;
-  let hasAttributes;
+  let hasAttributes: boolean;
+  let attributes: string[] = [];
   const { cart: products, addToCart } = React.useContext(
     CartContext
   ) as CartContextType;
   const [qty, setQty] = useState(1);
-  const [attrib, setAttrib] = useState(
-    product.product_variations
-      ? product.product_variations[0].attributes[0].option
-      : ""
+  // SET ATTRIBUTE STATES
+  // THE MAX ATTRIBUTES OF ANY ITEM ARE 4
+  const [attrib0, setAttrib0] = useState(
+    product.attributes ? product.attributes[0]?.options?.[0] : ""
+  );
+  const [attrib1, setAttrib1] = useState(
+    // @ts-ignore
+    product.attributes ? product.attributes[1]?.options?.[0] : ""
+  );
+  const [attrib2, setAttrib2] = useState(
+    // @ts-ignore
+    product.attributes ? product.attributes[2]?.options?.[0] : ""
+  );
+  const [attrib3, setAttrib3] = useState(
+    // @ts-ignore
+    product.attributes ? product.attributes[3]?.options?.[0] : ""
   );
 
   // @ts-ignore
-  product.product_variations.length != 0
+  product.attributes.length != 0
     ? (hasAttributes = true)
     : (hasAttributes = false);
 
   const addItemToCart = () => {
-    addToCart(product, qty, attrib);
+    addToCart(product, qty, [attrib0, attrib1, attrib2, attrib3]);
   };
 
   return (
     <Layout>
-      {console.log(product.attributes)}
+      {/* PRODUCT NAME */}
       <h1>{product.name}</h1>
+
+      {/* PRODUCT IMAGE */}
       <div>
         {product.images.length > 0 ? (
           <img
             style={{ maxWidth: "175px", maxHeight: "175px" }}
             src={product.images[0].src}
+            alt={"product image"}
           />
         ) : (
           <span>no image</span>
         )}
       </div>
 
-      <Box sx={{ minWidth: 120 }}>
-        {hasAttributes ? (
-          // TODO: Iterate thru each attribute and make a selector for each.
-          // also, change the item model to account for multiple attributes...and then the cart.
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">
-              {hasAttributes == true
-                ? " " +
-                  product.product_variations?.[0].attributes?.[0].name +
-                  " "
-                : "option"}
-            </InputLabel>
-            <Select
-              labelId="attrib-select-id"
-              id="attrib-select"
-              value={attrib}
-              label={
-                hasAttributes == true
-                  ? " " +
-                    product.product_variations?.[0].attributes?.[0].name +
-                    " "
-                  : "option"
-              }
-              onChange={(e) => {
-                setAttrib(e.target.value);
-              }}
-            >
-              {product.product_variations.map((variation) => {
-                return variation.attributes != undefined ? (
-                  <MenuItem
-                    value={variation.attributes[0].option}
-                    key={variation.attributes[0].option}
-                  >
-                    {variation.attributes[0].option}
-                  </MenuItem>
-                ) : (
-                  <span>none</span>
-                );
-              })}
-            </Select>
-          </FormControl>
-        ) : (
-          <span>No Options</span>
-        )}
+      {/* ATTRIBUTE BOXES */}
+      <Box sx={{minWidth: '100px'}}>
+        {product.attributes?.map((attribute, index) => {
+          console.log("attrib index is: ", index)
+          return (
+            <FormControl fullWidth style={{margin: '10px'}}>
+              <InputLabel id="demo-simple-select-label">
+                {attribute?.name}
+              </InputLabel>
+              <Select
+                labelId="attrib-select-id"
+                id="attrib-select"
+                // @ts-ignore
+                value={window['attrib' + index]}
+                label={attribute?.name}
+                onChange={(e) => {
+                  // setAttrib0(e.target.value);
+                  switch (index) {
+                    case 0: setAttrib0(e.target.value); break;
+                    case 1: setAttrib1(e.target.value); break;
+                    case 2: setAttrib2(e.target.value); break;
+                    case 3: setAttrib3(e.target.value); break;
+                  }
+                }}
+              >
+                {attribute.options?.map((o) => {
+                  return (
+                    <MenuItem value={o} key={o}>
+                      {o}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
+          );
+        })}
       </Box>
 
+      {/* ITEM DESCRIPTION AREA */}
       <div style={{ margin: "1rem 1rem" }}>
         {product.description ? (
           <p>{product.description}</p>
@@ -118,8 +127,10 @@ const ProductTemplate: React.FC<Data> = ({ data }: Data) => {
           <p>no description for product</p>
         )}
       </div>
+
+      {/* PRODUCT PRICE */}
       <PriceText>${product.price * 1}</PriceText>
-      <div style={{ width: "100px" }}>
+      <div style={{ width: "100px", padding: '8px' }}>
         <CounterInput
           style={{ width: "100px" }}
           onChange={(value: number) => {
@@ -128,6 +139,8 @@ const ProductTemplate: React.FC<Data> = ({ data }: Data) => {
           value={1}
         />
       </div>
+
+      {/* BUY BUTTON */}
       <Button onClick={addItemToCart}>Add to Cart</Button>
     </Layout>
   );
@@ -136,25 +149,7 @@ const ProductTemplate: React.FC<Data> = ({ data }: Data) => {
 export const query = graphql`
   query ItemQuery($id: String!) {
     wcProducts(id: { eq: $id }) {
-      description
-      name
-      price
-      id
-      sku
-      wordpress_id
-      images {
-        src
-      }
-      product_variations {
-        attributes {
-          name
-          option
-          id
-        }
-        image {
-          src
-        }
-      }
+      ...ProductData
     }
   }
 `;

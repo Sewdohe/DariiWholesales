@@ -70,7 +70,7 @@ export default function CategorySidebar() {
         }
       `}
       render={(data: Categories) => (
-        <Box sx={{ width: "300px", bgcolor: "background.paper" }}>
+        <Box sx={{ bgColor: "background.paper" }}>
           <Typography variant="h6" component="div">Categories</Typography>
           <Divider />
           <nav aria-label="categories">

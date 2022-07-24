@@ -8,13 +8,13 @@ const CartProvider: React.FC<React.ReactNode> = ({ children }) => {
   const [cart, updateCart] = React.useState<Cart>([]);
 
   // This function is a doozy. Lemme document this bytch...
-  const addToCart = (newItem: Product, qty: number, variation: string) => {
+  const addToCart = (newItem: Product, qty: number, variation: string[] | undefined) => {
     updateCart((prevValue: Cart) => {
       let newLine: CartLine = {product: newItem, qty: qty, variation: variation }; // aggregate the passed variables into an object of CarLine type
-      const existingIndex: number = prevValue.findIndex((prevvalue) => {
+      const existingIndex: number = prevValue.findIndex((prev) => {
         // get the index of the item in the cart array
-        // if the user has already added it to thier cart.
-        return prevvalue.product.id == newItem.id;
+        // if the user has already added it to their cart.
+        return prev.product.id == newItem.id;
         // TODO: Check the flavor on the item, and if it's a new flavor then
         // add it as a new cart item.
       })
@@ -31,12 +31,12 @@ const CartProvider: React.FC<React.ReactNode> = ({ children }) => {
         // we will be modifying it in some way, so create a copy
         let newCart = cart.slice(); // so we create a copy of the cart
         // we have to do a find index again, narrowing it down to the attrib this time
-        const attribIndex = prevValue.findIndex((prevvalue) => {
-          return prevvalue.variation == variation;
+        const attribIndex = prevValue.findIndex((prev) => {
+          return prev.variation == variation;
         })
 
         if(attribIndex != -1) {
-          // if we land here, this variation is alreay in the cart. Adjust qty.
+          // if we land here, this variation is already in the cart. Adjust qty.
           console.log("Current existing item index is: " + attribIndex) 
           console.log("variation is the same...adding qty")
           newCart[attribIndex].qty = prevValue[attribIndex].qty + qty;
