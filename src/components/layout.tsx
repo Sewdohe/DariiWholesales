@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import { Helmet } from "react-helmet";
-import Navbar from './Navbar';
 
 const SiteContainer = styled.div`
   display: flex;

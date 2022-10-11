@@ -1,14 +1,13 @@
-import ThemeProvider from "./src/providers/ThemeProvider";
 import CartProvider from "./src/providers/CartProdiver";
-import Navbar from './src/components/Navbar';
+import Nav from './src/components/Nav'
 import React from "react";
-
+import { NextUIProvider } from '@nextui-org/react';
 
 export const wrapRootElement = ({ element }) => (
   <CartProvider>
-    <ThemeProvider>
-      <Navbar />
+    <NextUIProvider>
+      <Nav />
       {element}
-    </ThemeProvider>
+    </NextUIProvider>
   </CartProvider>
 );

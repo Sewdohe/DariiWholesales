@@ -26,29 +26,31 @@ const ProductTemplate: React.FC<Data> = ({ data }: Data) => {
 
   return (
     <Layout>
-      <Box sx={{ flexGrow: 1, minWidth: '80vw' }}>
-        <Stack direction="row" spacing={2}>
-          <Box>
+      <Box sx={{ flexGrow: 1, minWidth: '80vw', width: '100%' }}>
+        <Stack direction="row" spacing={1}>
+          <Box sx={{ flexGrow: 1, minWidth: '80vw', width: '100%', margin: '1rem' }}>
             <Grid
               flexGrow={1}
               container
-              rowSpacing={2}
-              columnSpacing={3}
-              alignItems="flex-end"
-              justifyContent="center"
+              rowSpacing={1}
+              columnSpacing={2}
+              alignItems="space-around"
+              justifyContent="space-evenly"
+              sx={{ width: '100%' }}
             >
-              {console.log(data)}
-              {data.allWcProducts.edges.map(({ node: product }) => {
-                return (
-                  <Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
-                    <ProductCard item={product}></ProductCard>
-                  </Grid>
-                );
-              })}
+              {
+                data.allWcProducts.edges.map(({ node: Product }) => {
+                  return (
+                    <Grid key={Product.id} item xs={12} sm={6} md={4} lg={4} xl={3}>
+                      <ProductCard item={Product}></ProductCard>
+                    </Grid>
+                  )
+                })
+              }
             </Grid>
           </Box>
+          <Box sx={{ flexGrow: 1, minWidth: '20vw', maxWidth: '20vw' }}>
             <CategorySidebar />
-          <Box>
           </Box>
         </Stack>
       </Box>
