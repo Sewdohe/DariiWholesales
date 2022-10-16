@@ -1,77 +1,115 @@
-import React from "react";
-import { navigate } from "gatsby";
-import { Navbar, Button, Link, Text } from "@nextui-org/react";
+import React, { useContext } from "react";
+import { navigate, Link } from "gatsby";
+import { Navbar, Button, Text, Avatar, Row } from "@nextui-org/react";
 
-export default function Nav() {
+import { CartContext } from "../contexts/CartContext";
+import { CartContextType } from "../@types/cart";
+import { NextCart } from "./NextCart";
+
+import { useAuthValue } from "./AuthContext";
+import { signOut } from "firebase/auth";
+import { auth } from "./Firebase";
+
+const NavItems = [
+  {
+    displayName: "Home",
+    url: "/",
+    key: "home",
+  },
+  {
+    displayName: "Shop",
+    url: "/shop/",
+    key: "shop",
+  },
+];
+
+function handleSignOut() {
+  signOut(auth);
+}
+
+// @ts-ignore
+const Nav = () => {
+  const url = window.location.pathname ? window.location.pathname : "";
+
+  const { currentUser } = useAuthValue();
+
+
+  const { cart, getTotalQty } = React.useContext(
+    CartContext
+  ) as CartContextType;
+
+  let details;
+
+  if (!currentUser) {
+    details = (
+      <Row>
+        <Navbar.Item>
+          <Button
+            size="sm"
+            flat
+            css={{ margin: "0 0.5rem" }}
+            onPress={() => navigate("/register/")}
+          >
+            Register
+          </Button>
+        </Navbar.Item>
+        <Navbar.Item>
+          <Button
+            size="sm"
+            flat
+            css={{ margin: "0 0.5rem" }}
+            onClick={() => navigate("/login/")}
+          >
+            Sign In
+          </Button>
+        </Navbar.Item>
+      </Row>
+    );
+  } else {
+    details = (
+      <Row>
+        <Avatar color="primary" bordered css={{ margin: '0 1rem' }} text={currentUser.displayName!} />
+        <Button auto flat onClick={handleSignOut}>
+          Log Out
+        </Button>
+      </Row>
+    );
+  }
+
   return (
     <div>
-      <Navbar isBordered variant="sticky">
+      <Navbar variant="static">
         <Navbar.Brand>
-          {/* <AcmeLogo /> */}
-          <Text b color="inherit" hideIn="xs">
+          <Text
+            color="inherit"
+            hideIn="xs"
+            css={{ fontSize: "2rem", margin: "auto auto" }}
+          >
             Mr.Cigars
           </Text>
         </Navbar.Brand>
-        <Navbar.Content hideIn="xs">
-          <Navbar.Link
-            onClick={() => {
-              navigate("/shop/");
-            }}
-          >
-            Shop
-          </Navbar.Link>
-          <Navbar.Link isActive href="#">
-            Customers
-          </Navbar.Link>
-          <Navbar.Link href="#">Account</Navbar.Link>
-          <Navbar.Link href="#">About</Navbar.Link>
+        <Navbar.Content variant="highlight" hideIn="xs">
+          {NavItems.map((navItem) => {
+            return (
+              <Navbar.Link
+                isActive={navItem.url == url ? true : false}
+                key={navItem.key}
+                onClick={() => {
+                  navigate(navItem.url);
+                }}
+              >
+                {navItem.displayName}
+              </Navbar.Link>
+            );
+          })}
+          <NextCart />
         </Navbar.Content>
-        <Navbar.Content>
-          <Navbar.Link color="inherit" href="#">
-            Login
-          </Navbar.Link>
-          <Navbar.Item>
-            <Button auto flat as={Link} href="#">
-              Sign Up
-            </Button>
-          </Navbar.Item>
-        </Navbar.Content>
+
+        {/* user account area */}
+        <Navbar.Content activeColor={"primary"}>{details}</Navbar.Content>
       </Navbar>
-      <VariantsSelectorWrapper>
-        <Card css={{ px: "$6", maxW: "90%" }}>
-          <Card.Body>
-            <Radio.Group
-              defaultValue="default"
-              label="Select active variant"
-              orientation="horizontal"
-              size="sm"
-              value={variant}
-              onChange={setVariant}
-            >
-              {variants.map((variant) => (
-                <Radio key={variant} color={activeColor} value={variant}>
-                  {variant}
-                </Radio>
-              ))}
-            </Radio.Group>
-            <Spacer y={0.5} />
-            <Radio.Group
-              defaultValue="default"
-              label="Select active color"
-              orientation="horizontal"
-              size="sm"
-              value={activeColor}
-              onChange={setActiveColor}
-            >
-              {colors.map((color) => (
-                <Radio key={color} color={activeColor} value={color}>
-                  {color === "primary" ? "primary (default)" : color}
-                </Radio>
-              ))}
-            </Radio.Group>
-          </Card.Body>
-        </Card>
-      </VariantsSelectorWrapper>
     </div>
   );
-}
+};
+
+export default Nav;

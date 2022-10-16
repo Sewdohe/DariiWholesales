@@ -1,6 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import { Helmet } from "react-helmet";
+import Nav from "../components/Nav";
+import { NextUIProvider } from "@nextui-org/react";
+// @ts-ignore
+import theme from "../styles/nextUITheme";
 
 const SiteContainer = styled.div`
   display: flex;
@@ -15,7 +19,7 @@ const SiteContainer = styled.div`
 
 const Layout: React.FC = ({ children }) => {
   return (
-    <>
+    <NextUIProvider theme={theme}>
       <Helmet>
         <link
           rel="stylesheet"
@@ -26,8 +30,9 @@ const Layout: React.FC = ({ children }) => {
           href="https://fonts.googleapis.com/icon?family=Material+Icons"
         />
       </Helmet>
+      <Nav />
       <SiteContainer>{children}</SiteContainer>
-    </>
+    </NextUIProvider>
   );
 };
 

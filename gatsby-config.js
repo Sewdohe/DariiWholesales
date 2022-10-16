@@ -1,6 +1,6 @@
 require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`,
-})
+});
 
 module.exports = {
   siteMetadata: {
@@ -34,7 +34,12 @@ module.exports = {
           consumer_secret: process.env.CONSUMER_SECRET,
         },
         // Array of strings with fields you'd like to create nodes for...
-        fields: ["products", "products/categories", "variations", "products/variations"],
+        fields: [
+          "products",
+          "products/categories",
+          "variations",
+          "products/variations",
+        ],
       },
     },
     {

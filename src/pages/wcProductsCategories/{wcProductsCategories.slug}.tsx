@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { graphql } from "gatsby";
-import Layout from "../../components/layout";
+import Layout from "../../components/Layout";
 import { Product, Products } from "../../@types/product";
 import styled from "styled-components";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
-import { ProductCard } from "../../components/productCard";
-import CategorySidebar from "../../components/categorySidebar";
+import { ProductCard } from "../../components/ProductCard";
+import CategorySidebar from "../../components/CategorySidebar";
 
 interface Data {
   data: {

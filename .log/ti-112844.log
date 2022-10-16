@@ -1,0 +1,33 @@
+[15:48:24.852] Global cache location '/home/sewdohe/.cache/typescript/4.8', safe file path '/home/sewdohe/.nvm/versions/node/v16.16.0/lib/node_modules/typescript/lib/typingSafeList.json', types map path /home/sewdohe/.nvm/versions/node/v16.16.0/lib/node_modules/typescript/lib/typesMap.json
+[15:48:24.852] Processing cache location '/home/sewdohe/.cache/typescript/4.8'
+[15:48:24.852] Trying to find '/home/sewdohe/.cache/typescript/4.8/package.json'...
+[15:48:24.853] Loaded content of '/home/sewdohe/.cache/typescript/4.8/package.json': {"private":true,"dependencies":{"types-registry":"^0.1.613"},"devDependencies":{"@types/bootstrap":"^5.2.5","@types/gray-percentage":"^2.0.0","@types/node":"^18.7.17","@types/object-assign":"^4.0.30","@types/prop-types":"^15.7.5","@types/react":"^18.0.21","@types/react-dom":"^18.0.6","@types/react-helmet":"^6.1.5","@types/styled-components":"^5.1.26","@types/typography":"^0.16.4","@types/typography-breakpoint-constants":"^0.16.0"}}
+[15:48:24.853] Loaded content of '/home/sewdohe/.cache/typescript/4.8/package-lock.json'
+[15:48:24.860] Adding entry into typings cache: 'bootstrap' => '/home/sewdohe/.cache/typescript/4.8/node_modules/@types/bootstrap/index.d.ts'
+[15:48:24.862] Adding entry into typings cache: 'gray-percentage' => '/home/sewdohe/.cache/typescript/4.8/node_modules/@types/gray-percentage/index.d.ts'
+[15:48:24.865] Adding entry into typings cache: 'node' => '/home/sewdohe/.cache/typescript/4.8/node_modules/@types/node/index.d.ts'
+[15:48:24.866] Adding entry into typings cache: 'object-assign' => '/home/sewdohe/.cache/typescript/4.8/node_modules/@types/object-assign/index.d.ts'
+[15:48:24.867] Adding entry into typings cache: 'prop-types' => '/home/sewdohe/.cache/typescript/4.8/node_modules/@types/prop-types/index.d.ts'
+[15:48:24.870] Adding entry into typings cache: 'react' => '/home/sewdohe/.cache/typescript/4.8/node_modules/@types/react/index.d.ts'
+[15:48:24.872] Adding entry into typings cache: 'react-dom' => '/home/sewdohe/.cache/typescript/4.8/node_modules/@types/react-dom/index.d.ts'
+[15:48:24.873] Adding entry into typings cache: 'react-helmet' => '/home/sewdohe/.cache/typescript/4.8/node_modules/@types/react-helmet/index.d.ts'
+[15:48:24.874] Adding entry into typings cache: 'styled-components' => '/home/sewdohe/.cache/typescript/4.8/node_modules/@types/styled-components/index.d.ts'
+[15:48:24.875] Adding entry into typings cache: 'typography' => '/home/sewdohe/.cache/typescript/4.8/node_modules/@types/typography/index.d.ts'
+[15:48:24.875] Adding entry into typings cache: 'typography-breakpoint-constants' => '/home/sewdohe/.cache/typescript/4.8/node_modules/@types/typography-breakpoint-constants/index.d.ts'
+[15:48:24.875] Finished processing cache location '/home/sewdohe/.cache/typescript/4.8'
+[15:48:24.876] Process id: 112851
+[15:48:24.876] NPM location: /home/sewdohe/.nvm/versions/node/v16.16.0/bin/npm (explicit '--npmLocation' not  provided)
+[15:48:24.876] validateDefaultNpmLocation: false
+[15:48:24.876] Npm config file: /home/sewdohe/.cache/typescript/4.8/package.json
+[15:48:24.876] Updating types-registry npm package...
+[15:48:24.876] Exec: /home/sewdohe/.nvm/versions/node/v16.16.0/bin/npm install --ignore-scripts types-registry@latest
+[15:48:25.683]     Succeeded. stdout:
+    
+    up to date, audited 19 packages in 639ms
+
+1 package is looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+[15:48:25.683] Updated types-registry npm package

@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { graphql } from "gatsby";
-import Layout from "../../components/layout";
+import Layout from "../../components/Layout";
 import { Product } from "../../@types/product";
 import styled from "styled-components";
 import { Button } from "react-bootstrap";
+
 // @ts-ignore
 import CounterInput from "react-bootstrap-counter";
 import { CartContext } from "../../contexts/CartContext";
 import { CartContextType } from "../../@types/cart";
-// import { PopupCart } from "../../components/PopupCart";
 
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
@@ -30,12 +30,15 @@ const PriceText = styled.span`
 
 const ProductTemplate: React.FC<Data> = ({ data }: Data) => {
   const { wcProducts: product } = data;
+
   let hasAttributes: boolean;
   let attributes: string[] = [];
+
   const { cart: products, addToCart } = React.useContext(
     CartContext
   ) as CartContextType;
   const [qty, setQty] = useState(1);
+
   // SET ATTRIBUTE STATES
   // THE MAX ATTRIBUTES OF ANY ITEM ARE 4
   const [attrib0, setAttrib0] = useState(
@@ -53,6 +56,17 @@ const ProductTemplate: React.FC<Data> = ({ data }: Data) => {
     // @ts-ignore
     product.attributes ? product.attributes[3]?.options?.[0] : ""
   );
+
+  if(attrib1 === undefined){
+    setAttrib1("")
+  }
+  if(attrib2 === undefined){
+    setAttrib2("")
+  }
+  if(attrib3 === undefined){
+    setAttrib3("")
+  }
+
 
   // @ts-ignore
   product.attributes.length != 0
@@ -82,11 +96,14 @@ const ProductTemplate: React.FC<Data> = ({ data }: Data) => {
       </div>
 
       {/* ATTRIBUTE BOXES */}
-      <Box sx={{minWidth: '100px'}}>
+      <Box sx={{ minWidth: "100px" }}>
         {product.attributes?.map((attribute, index) => {
-          console.log("attrib index is: ", index)
           return (
-            <FormControl fullWidth style={{margin: '10px'}}>
+            <FormControl
+              key={"attrib" + attribute?.name}
+              fullWidth
+              style={{ margin: "10px" }}
+            >
               <InputLabel id="demo-simple-select-label">
                 {attribute?.name}
               </InputLabel>
@@ -94,15 +111,23 @@ const ProductTemplate: React.FC<Data> = ({ data }: Data) => {
                 labelId="attrib-select-id"
                 id="attrib-select"
                 // @ts-ignore
-                value={window['attrib' + index]}
+                value={window["attrib" + index]}
                 label={attribute?.name}
                 onChange={(e) => {
                   // setAttrib0(e.target.value);
                   switch (index) {
-                    case 0: setAttrib0(e.target.value); break;
-                    case 1: setAttrib1(e.target.value); break;
-                    case 2: setAttrib2(e.target.value); break;
-                    case 3: setAttrib3(e.target.value); break;
+                    case 0:
+                      setAttrib0(e.target.value);
+                      break;
+                    case 1:
+                      setAttrib1(e.target.value);
+                      break;
+                    case 2:
+                      setAttrib2(e.target.value);
+                      break;
+                    case 3:
+                      setAttrib3(e.target.value);
+                      break;
                   }
                 }}
               >
@@ -130,7 +155,7 @@ const ProductTemplate: React.FC<Data> = ({ data }: Data) => {
 
       {/* PRODUCT PRICE */}
       <PriceText>${product.price * 1}</PriceText>
-      <div style={{ width: "100px", padding: '8px' }}>
+      <div style={{ width: "100px", padding: "8px" }}>
         <CounterInput
           style={{ width: "100px" }}
           onChange={(value: number) => {

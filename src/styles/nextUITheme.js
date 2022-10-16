@@ -1,7 +1,7 @@
-import { createTheme, NextUIProvider, Text } from "@nextui-org/react"
+import { createTheme } from "@nextui-org/react"
 
 const theme = createTheme({
-  type: "dark", // it could be "light" or "dark"
+  type: "light",
   theme: {
     colors: {
       // brand colors
@@ -27,13 +27,4 @@ const theme = createTheme({
   }
 })
 
-
-// 3. Pass the new theme to `NextUIProvider`
-<NextUIProvider theme={theme}>
-  <App />
-</NextUIProvider>
-
-// 4. Now you can use these colors in your components
-function MyComponent() {
-  return <Text css={{ background: '$myColor' }}>NextUI colors</Text>
-}
+export default theme

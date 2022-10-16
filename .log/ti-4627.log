@@ -1,0 +1,65 @@
+[13:36:21.289] Global cache location '/home/sewdohe/.cache/typescript/4.8', safe file path '/home/sewdohe/.nvm/versions/node/v16.16.0/lib/node_modules/typescript/lib/typingSafeList.json', types map path /home/sewdohe/.nvm/versions/node/v16.16.0/lib/node_modules/typescript/lib/typesMap.json
+[13:36:21.289] Processing cache location '/home/sewdohe/.cache/typescript/4.8'
+[13:36:21.289] Trying to find '/home/sewdohe/.cache/typescript/4.8/package.json'...
+[13:36:21.291] Loaded content of '/home/sewdohe/.cache/typescript/4.8/package.json': {"private":true,"dependencies":{"types-registry":"^0.1.613"},"devDependencies":{"@types/bootstrap":"^5.2.5","@types/eslint":"^8.4.6","@types/gray-percentage":"^2.0.0","@types/node":"^18.7.17","@types/object-assign":"^4.0.30","@types/prop-types":"^15.7.5","@types/react":"^18.0.21","@types/react-dom":"^18.0.6","@types/react-helmet":"^6.1.5","@types/styled-components":"^5.1.26","@types/typography":"^0.16.4","@types/typography-breakpoint-constants":"^0.16.0"}}
+[13:36:21.291] Loaded content of '/home/sewdohe/.cache/typescript/4.8/package-lock.json'
+[13:36:21.300] Adding entry into typings cache: 'bootstrap' => '/home/sewdohe/.cache/typescript/4.8/node_modules/@types/bootstrap/index.d.ts'
+[13:36:21.302] Adding entry into typings cache: 'eslint' => '/home/sewdohe/.cache/typescript/4.8/node_modules/@types/eslint/index.d.ts'
+[13:36:21.303] Adding entry into typings cache: 'gray-percentage' => '/home/sewdohe/.cache/typescript/4.8/node_modules/@types/gray-percentage/index.d.ts'
+[13:36:21.307] Adding entry into typings cache: 'node' => '/home/sewdohe/.cache/typescript/4.8/node_modules/@types/node/index.d.ts'
+[13:36:21.309] Adding entry into typings cache: 'object-assign' => '/home/sewdohe/.cache/typescript/4.8/node_modules/@types/object-assign/index.d.ts'
+[13:36:21.310] Adding entry into typings cache: 'prop-types' => '/home/sewdohe/.cache/typescript/4.8/node_modules/@types/prop-types/index.d.ts'
+[13:36:21.314] Adding entry into typings cache: 'react' => '/home/sewdohe/.cache/typescript/4.8/node_modules/@types/react/index.d.ts'
+[13:36:21.316] Adding entry into typings cache: 'react-dom' => '/home/sewdohe/.cache/typescript/4.8/node_modules/@types/react-dom/index.d.ts'
+[13:36:21.317] Adding entry into typings cache: 'react-helmet' => '/home/sewdohe/.cache/typescript/4.8/node_modules/@types/react-helmet/index.d.ts'
+[13:36:21.318] Adding entry into typings cache: 'styled-components' => '/home/sewdohe/.cache/typescript/4.8/node_modules/@types/styled-components/index.d.ts'
+[13:36:21.320] Adding entry into typings cache: 'typography' => '/home/sewdohe/.cache/typescript/4.8/node_modules/@types/typography/index.d.ts'
+[13:36:21.321] Adding entry into typings cache: 'typography-breakpoint-constants' => '/home/sewdohe/.cache/typescript/4.8/node_modules/@types/typography-breakpoint-constants/index.d.ts'
+[13:36:21.321] Finished processing cache location '/home/sewdohe/.cache/typescript/4.8'
+[13:36:21.321] Process id: 4634
+[13:36:21.321] NPM location: /home/sewdohe/.nvm/versions/node/v16.16.0/bin/npm (explicit '--npmLocation' not  provided)
+[13:36:21.321] validateDefaultNpmLocation: false
+[13:36:21.321] Npm config file: /home/sewdohe/.cache/typescript/4.8/package.json
+[13:36:21.321] Updating types-registry npm package...
+[13:36:21.321] Exec: /home/sewdohe/.nvm/versions/node/v16.16.0/bin/npm install --ignore-scripts types-registry@latest
+[13:36:27.190]     Succeeded. stdout:
+    
+    up to date, audited 22 packages in 6s
+
+1 package is looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+
+[13:36:27.191] Updated types-registry npm package
+[14:20:56.910] Got install request {"projectName":"/dev/null/inferredProject1*","fileNames":[],"compilerOptions":{"module":1,"target":3,"jsx":1,"allowJs":true,"allowSyntheticDefaultImports":true,"allowNonTsExtensions":true,"noEmitForJsFiles":true},"typeAcquisition":{"enable":true,"include":[],"exclude":[]},"unresolvedImports":[],"projectRootPath":"/home/sewdohe/Code/DariiWholesales/src/components","kind":"discover"}
+[14:20:56.919] Loaded safelist from types map file '/home/sewdohe/.nvm/versions/node/v16.16.0/lib/node_modules/typescript/lib/typesMap.json'
+[14:20:56.919] Explicitly included types: []
+[14:20:56.919] Inferred typings from unresolved imports: []
+[14:20:56.919] Result: {"cachedTypingPaths":[],"newTypingNames":[],"filesToWatch":["/home/sewdohe/Code/DariiWholesales/src/components/bower_components","/home/sewdohe/Code/DariiWholesales/src/components/node_modules"]}
+[14:20:56.919] Finished typings discovery: {"cachedTypingPaths":[],"newTypingNames":[],"filesToWatch":["/home/sewdohe/Code/DariiWholesales/src/components/bower_components","/home/sewdohe/Code/DariiWholesales/src/components/node_modules"]}
+[14:20:56.919] DirectoryWatcher:: Added:: WatchInfo: /home/sewdohe/Code/DariiWholesales/src/components/bower_components
+[14:20:56.920] DirectoryWatcher:: Added:: WatchInfo: /home/sewdohe/Code/DariiWholesales/src/components/bower_components 1 undefined Project: /dev/null/inferredProject1* watcher already invoked: false
+[14:20:56.921] Elapsed:: 0.8530359999276698ms DirectoryWatcher:: Added:: WatchInfo: /home/sewdohe/Code/DariiWholesales/src/components/bower_components 1 undefined Project: /dev/null/inferredProject1* watcher already invoked: false
+[14:20:56.921] DirectoryWatcher:: Added:: WatchInfo: /home/sewdohe/Code/DariiWholesales/src/components/node_modules
+[14:20:56.921] DirectoryWatcher:: Added:: WatchInfo: /home/sewdohe/Code/DariiWholesales/src/components/node_modules 1 undefined Project: /dev/null/inferredProject1* watcher already invoked: false
+[14:20:56.921] Elapsed:: 0.05586199974641204ms DirectoryWatcher:: Added:: WatchInfo: /home/sewdohe/Code/DariiWholesales/src/components/node_modules 1 undefined Project: /dev/null/inferredProject1* watcher already invoked: false
+[14:20:56.921] Sending response:
+    {"projectName":"/dev/null/inferredProject1*","typeAcquisition":{"enable":true,"include":[],"exclude":[]},"compilerOptions":{"module":1,"target":3,"jsx":1,"allowJs":true,"allowSyntheticDefaultImports":true,"allowNonTsExtensions":true,"noEmitForJsFiles":true},"typings":[],"unresolvedImports":[],"kind":"action::set"}
+[14:20:56.921] Response has been sent.
+[14:20:56.921] No new typings were requested as a result of typings discovery
+[15:22:49.889] Got install request {"projectName":"/dev/null/inferredProject2*","fileNames":[],"compilerOptions":{"module":1,"target":3,"jsx":1,"allowJs":true,"allowSyntheticDefaultImports":true,"allowNonTsExtensions":true,"noEmitForJsFiles":true},"typeAcquisition":{"enable":true,"include":[],"exclude":[]},"unresolvedImports":[],"projectRootPath":"/home/sewdohe/Code/DariiWholesales/src/pages","kind":"discover"}
+[15:22:49.889] Explicitly included types: []
+[15:22:49.889] Inferred typings from unresolved imports: []
+[15:22:49.889] Result: {"cachedTypingPaths":[],"newTypingNames":[],"filesToWatch":["/home/sewdohe/Code/DariiWholesales/src/pages/bower_components","/home/sewdohe/Code/DariiWholesales/src/pages/node_modules"]}
+[15:22:49.889] Finished typings discovery: {"cachedTypingPaths":[],"newTypingNames":[],"filesToWatch":["/home/sewdohe/Code/DariiWholesales/src/pages/bower_components","/home/sewdohe/Code/DariiWholesales/src/pages/node_modules"]}
+[15:22:49.889] DirectoryWatcher:: Added:: WatchInfo: /home/sewdohe/Code/DariiWholesales/src/pages/bower_components
+[15:22:49.889] DirectoryWatcher:: Added:: WatchInfo: /home/sewdohe/Code/DariiWholesales/src/pages/bower_components 1 undefined Project: /dev/null/inferredProject2* watcher already invoked: false
+[15:22:49.889] Elapsed:: 0.08958199992775917ms DirectoryWatcher:: Added:: WatchInfo: /home/sewdohe/Code/DariiWholesales/src/pages/bower_components 1 undefined Project: /dev/null/inferredProject2* watcher already invoked: false
+[15:22:49.890] DirectoryWatcher:: Added:: WatchInfo: /home/sewdohe/Code/DariiWholesales/src/pages/node_modules
+[15:22:49.890] DirectoryWatcher:: Added:: WatchInfo: /home/sewdohe/Code/DariiWholesales/src/pages/node_modules 1 undefined Project: /dev/null/inferredProject2* watcher already invoked: false
+[15:22:49.890] Elapsed:: 0.06881299987435341ms DirectoryWatcher:: Added:: WatchInfo: /home/sewdohe/Code/DariiWholesales/src/pages/node_modules 1 undefined Project: /dev/null/inferredProject2* watcher already invoked: false
+[15:22:49.890] Sending response:
+    {"projectName":"/dev/null/inferredProject2*","typeAcquisition":{"enable":true,"include":[],"exclude":[]},"compilerOptions":{"module":1,"target":3,"jsx":1,"allowJs":true,"allowSyntheticDefaultImports":true,"allowNonTsExtensions":true,"noEmitForJsFiles":true},"typings":[],"unresolvedImports":[],"kind":"action::set"}
+[15:22:49.890] Response has been sent.
+[15:22:49.890] No new typings were requested as a result of typings discovery

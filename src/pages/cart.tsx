@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Layout from "../components/layout";
+import Layout from "../components/Layout";
 
 import Box from "@mui/material/Box";
 import CartContext from "../contexts/CartContext";
