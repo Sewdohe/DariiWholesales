@@ -1,20 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { graphql } from "gatsby";
 import Layout from "../../components/Layout";
 import { Product } from "../../@types/product";
 import styled from "styled-components";
-import { Button } from "react-bootstrap";
 
 // @ts-ignore
 import CounterInput from "react-bootstrap-counter";
 import { CartContext } from "../../contexts/CartContext";
 import { CartContextType } from "../../@types/cart";
 
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
-import Box from "@mui/material/Box";
+import { Button } from "@nextui-org/react";
+import { Box, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 
 interface Data {
   data: {
@@ -57,16 +53,27 @@ const ProductTemplate: React.FC<Data> = ({ data }: Data) => {
     product.attributes ? product.attributes[3]?.options?.[0] : ""
   );
 
-  if(attrib1 === undefined){
-    setAttrib1("")
+  const [selected0, setSelected0] = useState(attrib0)
+  const [selected1, setSelected1] = useState(attrib1)
+  const [selected2, setSelected2] = useState(attrib2)
+  const [selected3, setSelected3] = useState(attrib3)
+
+  if (attrib1 === undefined) {
+    setAttrib1("");
   }
-  if(attrib2 === undefined){
-    setAttrib2("")
+  if (attrib2 === undefined) {
+    setAttrib2("");
   }
-  if(attrib3 === undefined){
-    setAttrib3("")
+  if (attrib3 === undefined) {
+    setAttrib3("");
   }
 
+  useEffect(() => {
+    console.log(attrib0);
+    console.log(attrib1);
+    console.log(attrib2);
+    console.log(attrib3);
+  }, [attrib0, attrib1, attrib2, attrib3]);
 
   // @ts-ignore
   product.attributes.length != 0
@@ -104,32 +111,17 @@ const ProductTemplate: React.FC<Data> = ({ data }: Data) => {
               fullWidth
               style={{ margin: "10px" }}
             >
-              <InputLabel id="demo-simple-select-label">
+              <InputLabel id={attribute?.name}>
                 {attribute?.name}
               </InputLabel>
               <Select
                 labelId="attrib-select-id"
                 id="attrib-select"
-                // @ts-ignore
-                value={window["attrib" + index]}
+                aria-label="Flavor Select"
+                value={eval(`attrib${index}`)}
                 label={attribute?.name}
-                onChange={(e) => {
-                  // setAttrib0(e.target.value);
-                  switch (index) {
-                    case 0:
-                      setAttrib0(e.target.value);
-                      break;
-                    case 1:
-                      setAttrib1(e.target.value);
-                      break;
-                    case 2:
-                      setAttrib2(e.target.value);
-                      break;
-                    case 3:
-                      setAttrib3(e.target.value);
-                      break;
-                  }
-                }}
+                autoWidth
+                onChange={(e) => { eval(`setAttrib${index}(e.target.value)`)}}
               >
                 {attribute.options?.map((o) => {
                   return (
@@ -144,7 +136,6 @@ const ProductTemplate: React.FC<Data> = ({ data }: Data) => {
         })}
       </Box>
 
-      {/* ITEM DESCRIPTION AREA */}
       <div style={{ margin: "1rem 1rem" }}>
         {product.description ? (
           <p>{product.description}</p>

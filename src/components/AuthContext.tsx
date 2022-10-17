@@ -28,7 +28,7 @@ const AuthProvider: React.FC<React.ReactNode> = ({ children }) => {
 
   return (
     <AuthContext.Provider
-    value={{currentUser, setCurrentUser}}>  
+    value={{currentUser, setCurrentUser}}>
       <div>
         {children}
       </div>

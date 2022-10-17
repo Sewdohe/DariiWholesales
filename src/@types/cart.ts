@@ -3,10 +3,20 @@ import React from "react";
 import { Product, Products } from "./product";
 
 export type CartContextType = {
-  cart: Cart;
+  cart: FirebaseCart | null;
   addToCart: (item: Product, qty: number, variation?: string[]) => void;
-  getTotalQty: () => number
+  getTotal: () => void;
+  total: number;
 };
+
+interface FirebaseCartLine {
+  itemName: string,
+  quantity: number,
+  variation: string[] | undefined
+  id: string
+}
+
+interface FirebaseCart extends Array<FirebaseCartLine>{}
 
 export interface CartLine {
   product: Product,

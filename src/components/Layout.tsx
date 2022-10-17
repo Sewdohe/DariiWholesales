@@ -15,11 +15,12 @@ const SiteContainer = styled.div`
   width: 100%;
   justify-content: center;
   align-items: center;
+  height: 100%;
 `;
 
 const Layout: React.FC = ({ children }) => {
   return (
-    <NextUIProvider theme={theme}>
+      <NextUIProvider theme={theme}>
       <Helmet>
         <link
           rel="stylesheet"

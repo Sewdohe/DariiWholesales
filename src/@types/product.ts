@@ -37,7 +37,7 @@ export interface Product {
         }
       ]
     }
-  ]
+  ] | null
 }
 
 export interface ItemsQueryResult {
