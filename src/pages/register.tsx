@@ -1,17 +1,18 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { navigate } from "gatsby";
 import Layout from "../components/Layout";
-import { Input, Container, Row, Col, Button, Text } from "@nextui-org/react";
-import { createUserWithEmailAndPassword, getAuth, updateProfile } from "firebase/auth";
+import { Input, Container, Row, Button, Text } from "@nextui-org/react";
+
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { auth } from "../components/Firebase"
 
 //@ts-ignore
 import { db } from "../components/Firebase";
 
-import { collection, addDoc, doc, setDoc } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 
 const Register = () => {
-  const [errorMessage, setErrorMessage] = useState("");
-  const auth = getAuth();
+  const [_errorMessage, setErrorMessage] = useState("");
 
   const [formValues, setFormValues] = useState({
     email: "",
@@ -26,11 +27,11 @@ const Register = () => {
     fedTaxId: "",
   });
 
-  let isMounted = true;
+  let _isMounted = true;
 
   useEffect(() => {
     return () => {
-      isMounted = false;
+      _isMounted = false;
     };
   }, []);
 
@@ -45,7 +46,7 @@ const Register = () => {
   }
 
   // @ts-ignore
-  function handleSubmit(e) {
+  function handleSubmit() {
     /* e.preventDefault() */
     if (formValues.password === formValues.confirmPassword) {
       createUserWithEmailAndPassword(
@@ -67,7 +68,7 @@ const Register = () => {
                 storeCity: formValues.storeCity,
                 stateTaxId: formValues.stateTaxId,
                 fedTaxId: formValues.fedTaxId,
-            }).catch(reason => console.error("Couldn't add user data to database"))
+            }).catch(_reason => console.error("Couldn't add user data to database"))
           } catch (e) {
             console.error("Error adding document: ", e);
           }
@@ -81,8 +82,7 @@ const Register = () => {
             }
         })
         .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
+          console.error(error.message)
         });
     } else {
       setErrorMessage("Both Password Fields must Match!");

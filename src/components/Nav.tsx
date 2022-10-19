@@ -1,14 +1,13 @@
-import React, { useContext } from "react";
-import { navigate, Link } from "gatsby";
+import React from "react";
+import { navigate } from "gatsby";
 import { Navbar, Button, Text, Avatar, Row } from "@nextui-org/react";
 
-import { CartContext } from "../contexts/CartContext";
-import { CartContextType } from "../@types/cart";
 import { NextCart } from "./NextCart";
 
 import { useAuthValue } from "./AuthContext";
 import { signOut } from "firebase/auth";
 import { auth } from "./Firebase";
+import ThemeSwitch from "./ThemeSwitch"
 
 const NavItems = [
   {
@@ -29,14 +28,16 @@ function handleSignOut() {
 
 // @ts-ignore
 const Nav = () => {
-  const url = window.location.pathname ? window.location.pathname : "";
+  const isBrowser = typeof window !== "undefined"
+  let url: string = ""
+
+  if (isBrowser) {
+    url = window.location.pathname ? window.location.pathname : "";
+  } else {
+    url = ""
+  }
 
   const { currentUser } = useAuthValue();
-
-
-  const { cart, getTotalQty } = React.useContext(
-    CartContext
-  ) as CartContextType;
 
   let details;
 
@@ -107,6 +108,7 @@ const Nav = () => {
 
         {/* user account area */}
         <Navbar.Content activeColor={"primary"}>{details}</Navbar.Content>
+        <ThemeSwitch />
       </Navbar>
     </div>
   );

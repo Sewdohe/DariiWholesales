@@ -4,7 +4,8 @@ import { Helmet } from "react-helmet";
 import Nav from "../components/Nav";
 import { NextUIProvider } from "@nextui-org/react";
 // @ts-ignore
-import theme from "../styles/nextUITheme";
+import {lightTheme, darkTheme} from "../styles/nextUITheme";
+import useDarkMode from 'use-dark-mode';
 
 const SiteContainer = styled.div`
   display: flex;
@@ -19,8 +20,10 @@ const SiteContainer = styled.div`
 `;
 
 const Layout: React.FC = ({ children }) => {
+  const darkMode = useDarkMode(false);
+
   return (
-      <NextUIProvider theme={theme}>
+      <NextUIProvider theme={darkMode.value ? darkTheme : lightTheme}>
       <Helmet>
         <link
           rel="stylesheet"

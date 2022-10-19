@@ -1,17 +1,15 @@
 import React from "react";
-import { graphql, StaticQuery, navigate } from "gatsby";
+import { graphql, useStaticQuery, navigate } from "gatsby";
 import styled from "styled-components";
 
-import Box from "@mui/material/Box";
 import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
-import InboxIcon from "@mui/icons-material/Inbox";
-import DraftsIcon from "@mui/icons-material/Drafts";
+import { Card } from '@nextui-org/react'
+
 import { Typography } from "@mui/material";
+import CategoryDropdown from './CategoryDropdown'
 
 interface Categories {
   allWcProductsCategories: {
@@ -21,77 +19,81 @@ interface Categories {
           name: string;
           id: string;
           slug: string;
+          wordpress_parent_id: number;
+          wordpress_children: [
+            {
+              name: string;
+              slug: string;
+            }
+          ];
+          wordpress_parent: {
+            name: string;
+            slug: string;
+          };
         };
       }
     ];
   };
 }
 
-const CategoryItem = styled.li`
-  list-style-type: none;
-  font-size: 0.7rem;
-`;
-
-const CategoryList = styled.ul`
-  margin: 0;
-  padding: 0;
-  text-align: right;
-  border-left: 2px solid orange;
-`;
-
-const Title = styled.h2`
-  text-align: right;
-`;
-
-const SidebarContainer = styled.div`
-  /* max-width: 150px; */
-  max-height: 100vh;
-  overflow-y: scroll;
-  width: 200px;
-  ::-webkit-scrollbar {
-    display: none;
-  }
+const Nav = styled.nav`
+  margin: 1rem;
 `;
 
 export default function CategorySidebar() {
-  return (
-    <StaticQuery
-      query={graphql`
-        query {
-          allWcProductsCategories {
-            edges {
-              node {
-                name
-                id
-                slug
-              }
+  const data: Categories = useStaticQuery(graphql`
+    query {
+      allWcProductsCategories {
+        edges {
+          node {
+            name
+            id
+            slug
+            wordpress_parent_id
+            wordpress_children {
+              name
+              slug
+            }
+            wordpress_parent {
+              name
+              slug
             }
           }
         }
-      `}
-      render={(data: Categories) => (
-        <Box sx={{ bgColor: "background.paper" }}>
-          <Typography variant="h6" component="div">Categories</Typography>
-          <Divider />
-          <nav aria-label="categories">
-            <List dense>
-              {data.allWcProductsCategories.edges.map((category) => {
-                return (
-                  <ListItemButton
-                    component="a"
-                    key={category.node.id}
-                    onClick={() => {
-                      navigate(`/wcProductsCategories/${category.node.slug}`);
-                    }}
-                  >
-                    <ListItemText primary={category.node.name} />
-                  </ListItemButton>
-                );
-              })}
-            </List>
-          </nav>
-        </Box>
-      )}
-    />
+      }
+    }
+  `);
+
+  return (
+    <Card css={{ maxWidth: '10%', minWidth: '190px'}}>
+      <Card.Header>
+        <Typography variant="h6" component="div">
+          Categories
+        </Typography>
+      </Card.Header>
+
+      <Divider />
+
+      <Nav aria-label="categories">
+        <List dense>
+          {data.allWcProductsCategories.edges.map((category) => {
+            {
+              return category.node.wordpress_children.length! > 0 ? (
+                <CategoryDropdown key={category.node.id + category.node.slug} category={category} />
+              ) : (
+                <ListItemButton
+                  key={category.node.id}
+                  onClick={() => {
+                    navigate(`/wcProductsCategories/${category.node.slug}`);
+                  }}
+                >
+                  <ListItemText primary={category.node.name} />
+                </ListItemButton>
+              );
+            }
+          })}
+        </List>
+      </Nav>
+    </Card>
   );
 }

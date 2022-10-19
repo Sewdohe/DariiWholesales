@@ -26,6 +26,7 @@ export const ProductCard = ({ item }: Props) => {
         isPressable
         isHoverable
         onClick={() => navigate("/wcProducts/" + item.slug)}
+        css={{flexGrow: '0', maxHeight: '450px'}}
       >
         <Card.Header>
           <Text h3>{item.name}</Text>

@@ -1,13 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { graphql } from "gatsby";
 import Layout from "../../components/Layout";
-import { Product, Products } from "../../@types/product";
-import styled from "styled-components";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import Stack from "@mui/material/Stack";
+import { Product } from "../../@types/product";
 import { ProductCard } from "../../components/ProductCard";
 import CategorySidebar from "../../components/CategorySidebar";
+import { Grid } from "@nextui-org/react";
+import styled from "styled-components";
 
 interface Data {
   data: {
@@ -21,39 +19,34 @@ interface Data {
   };
 }
 
-const ProductTemplate: React.FC<Data> = ({ data }: Data) => {
-  const { allWcProducts: product } = data;
 
+const Container = styled.div`
+  display: flex;
+  width: 100%;
+`;
+
+const ProductTemplate: React.FC<Data> = ({ data }: Data) => {
   return (
     <Layout>
-      <Box sx={{ flexGrow: 1, minWidth: '80vw', width: '100%' }}>
-        <Stack direction="row" spacing={1}>
-          <Box sx={{ flexGrow: 1, minWidth: '80vw', width: '100%', margin: '1rem' }}>
-            <Grid
-              flexGrow={1}
-              container
-              rowSpacing={1}
-              columnSpacing={2}
-              alignItems="space-around"
-              justifyContent="space-evenly"
-              sx={{ width: '100%' }}
-            >
-              {
-                data.allWcProducts.edges.map(({ node: Product }) => {
-                  return (
-                    <Grid key={Product.id} item xs={12} sm={6} md={4} lg={4} xl={3}>
-                      <ProductCard item={Product}></ProductCard>
-                    </Grid>
-                  )
-                })
-              }
-            </Grid>
-          </Box>
-          <Box sx={{ flexGrow: 1, minWidth: '20vw', maxWidth: '20vw' }}>
-            <CategorySidebar />
-          </Box>
-        </Stack>
-      </Box>
+      <Container>
+        <Grid.Container gap={2} justify="center">
+          {data.allWcProducts.edges.map(({ node: Product }) => {
+            return (
+              <Grid
+                key={"shop" + Product.id}
+                xs={12}
+                sm={6}
+                md={4}
+                lg={3}
+                xl={3}
+              >
+                <ProductCard item={Product}></ProductCard>
+              </Grid>
+            );
+          })}
+        </Grid.Container>
+        <CategorySidebar  />
+      </Container>
     </Layout>
   );
 };

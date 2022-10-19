@@ -54,6 +54,8 @@ const CartProvider: React.FC<React.ReactNode> = ({ children }) => {
 
     };
 
+    console.log(variation)
+
     const existingIndex: number | undefined = cart?.findIndex((cart) => {
       // get the index of the item in the cart array
       // if the user has already added it to their cart.

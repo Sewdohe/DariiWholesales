@@ -30,7 +30,7 @@ const ProductTemplate: React.FC<Data> = ({ data }: Data) => {
   let hasAttributes: boolean;
   let attributes: string[] = [];
 
-  const { cart: products, addToCart } = React.useContext(
+  const { addToCart } = React.useContext(
     CartContext
   ) as CartContextType;
   const [qty, setQty] = useState(1);
@@ -58,6 +58,9 @@ const ProductTemplate: React.FC<Data> = ({ data }: Data) => {
   const [selected2, setSelected2] = useState(attrib2)
   const [selected3, setSelected3] = useState(attrib3)
 
+  if (attrib0 === undefined) {
+    setAttrib0("");
+  }
   if (attrib1 === undefined) {
     setAttrib1("");
   }
@@ -68,12 +71,12 @@ const ProductTemplate: React.FC<Data> = ({ data }: Data) => {
     setAttrib3("");
   }
 
-  useEffect(() => {
-    console.log(attrib0);
-    console.log(attrib1);
-    console.log(attrib2);
-    console.log(attrib3);
-  }, [attrib0, attrib1, attrib2, attrib3]);
+  // useEffect(() => {
+  //   console.log(attrib0);
+  //   console.log(attrib1);
+  //   console.log(attrib2);
+  //   console.log(attrib3);
+  // }, [attrib0, attrib1, attrib2, attrib3]);
 
   // @ts-ignore
   product.attributes.length != 0

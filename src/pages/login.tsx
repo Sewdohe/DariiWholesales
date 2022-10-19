@@ -3,10 +3,10 @@ import { navigate } from "gatsby";
 import Layout from "../components/Layout";
 import { Input, Container, Row, Col, Button, Text } from "@nextui-org/react";
 import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
+import {auth} from '../components/Firebase'
 
 const Login = () => {
   const [errorMessage, setErrorMessage] = useState("");
-  const auth = getAuth();
 
   const [formValues, setFormValues] = useState({
     email: "",

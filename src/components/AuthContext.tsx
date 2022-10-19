@@ -17,7 +17,6 @@ export const useAuth = () => useContext(AuthContext);
 const AuthProvider: React.FC<React.ReactNode> = ({ children }) => {
 
   const [currentUser, setCurrentUser] = useState<User | null>(null);
-  
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
